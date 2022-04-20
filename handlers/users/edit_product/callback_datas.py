@@ -1,11 +1,8 @@
-import json
-
-import requests
 from aiogram import types
 from aiogram.types import CallbackQuery
 from aiogram.dispatcher import FSMContext
 
-from data.config import BASE_URL
+from handlers.users.api import API
 from keyboards.default.cancel import cancel_button
 from keyboards.default.menu import default_menu
 from keyboards.inline.edit_product_buttons.callback_datas import choice_user_callback, show_product_buttons_callback, \
@@ -57,8 +54,7 @@ async def show_product_buttons_callback(call: CallbackQuery, callback_data: dict
     quantity_user = flag[choice_user]
 
     # Дізнаємось, яку кількість стікерів віднімати і додавати
-    product = requests.get(f'{BASE_URL}/v1/storage/product_info/{pk}/')
-    product = json.loads(product.text)
+    product = API().storage_product_info(pk)
 
     quantity_in_pack = int(product['quantity_in_pack'])
     quantity = int(product['storage_stickers'][quantity_user])
@@ -79,13 +75,16 @@ async def show_product_buttons_callback(call: CallbackQuery, callback_data: dict
         await SetQuantityState.quantity.set()
         await call.message.delete()
         return await call.message.answer("Кількість? 🥺", reply_markup=cancel_button)
+    elif action == 'close':
+        await call.message.delete()
+        return True
 
     # Оновлюємо дані в БД
     updated_product = {
         f"{quantity_user}": quantity
     }
 
-    requests.patch(f'{BASE_URL}/v1/storage/product_quantity/{pk}/', json=updated_product)
+    API().storage_product_quantity(pk, updated_product)
 
     await click_product_button(message=call.message, choice_user=choice_user, pk=pk, update=True)
 
@@ -116,7 +115,7 @@ async def another(message: types.Message, state: FSMContext):
                 f"{quantity_user}": quantity
             }
 
-            requests.patch(f'{BASE_URL}/v1/storage/product_quantity/{pk}/', json=updated_product)
+            API().storage_product_quantity(pk, updated_product)
             await message.answer("Готово 😎", reply_markup=default_menu)
     else:
         await message.answer(f"Введи ціле число 😏")

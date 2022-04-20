@@ -1,15 +1,12 @@
-import requests
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-import json
 
-from data.config import BASE_URL
+from handlers.users.api import API
 from .callback_datas import show_product_buttons_callback
 
 
 async def show_product_buttons(choice_user):
-    product_info_list = requests.get(f'{BASE_URL}/v1/storage/products_info/')
+    product_info_list = API().storage_products_info()
 
-    product_info_list = json.loads(product_info_list.text)
     list_button = []
 
     flag = {'dima': 'quantity_dima', 'vlad': 'quantity_vlad'}
