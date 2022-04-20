@@ -8,7 +8,7 @@ from .callback_datas import click_product_button_callback
 
 
 async def click_product_button(message, choice_user, pk, update=False):
-    product = requests.get(f'{BASE_URL}/v1/product_info/{pk}/')
+    product = requests.get(f'{BASE_URL}/v1/storage/product_info/{pk}/')
 
     product = json.loads(product.text)
 

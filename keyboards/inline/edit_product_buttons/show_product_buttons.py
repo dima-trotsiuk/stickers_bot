@@ -7,7 +7,7 @@ from .callback_datas import show_product_buttons_callback
 
 
 async def show_product_buttons(choice_user):
-    product_info_list = requests.get(f'{BASE_URL}/v1/product_info_list/')
+    product_info_list = requests.get(f'{BASE_URL}/v1/storage/products_info/')
 
     product_info_list = json.loads(product_info_list.text)
     list_button = []
