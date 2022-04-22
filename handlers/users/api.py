@@ -31,8 +31,21 @@ class API:
 
     def bag_products_get_post(self, json_post=False):
         if json_post:
-            requests.post(f'{BASE_URL}/v1/bag/bag_products/', data=json_post)
+            return requests.post(f'{BASE_URL}/v1/bag/bag_products/', data=json_post)
         else:
             products_in_bag = requests.get(f'{BASE_URL}/v1/bag/bag_products/')
             products_in_bag = json.loads(products_in_bag.text)
             return products_in_bag
+
+    def bag_product_get_update(self, pk, json_patch=False):
+        if json_patch:
+            requests.patch(f'{BASE_URL}/v1/bag/bag_product/{pk}/', json=json_patch)
+        else:
+            product_in_bag = requests.get(f'{BASE_URL}/v1/bag/bag_product/{pk}/')
+            product_in_bag = json.loads(product_in_bag.text)
+            return product_in_bag
+
+    def bag_plus_product_get_update(self, pk, json_patch=False):
+        bag_plus_product = requests.get(f'{BASE_URL}/v1/bag/detail/{pk}/')
+        bag_plus_product = json.loads(bag_plus_product.text)
+        return bag_plus_product

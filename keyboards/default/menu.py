@@ -10,7 +10,7 @@ default_menu = ReplyKeyboardMarkup(
         [
             KeyboardButton(text="Редагувати склад"),
             KeyboardButton(text="Управління замовленнями"),
-            KeyboardButton(text="Корзина"),
+            KeyboardButton(text="Кошик"),
         ],
         [
             KeyboardButton(text="Пошук по ТТН"),
