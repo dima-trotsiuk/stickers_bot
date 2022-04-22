@@ -84,7 +84,7 @@ async def show_product_buttons_callback(call: CallbackQuery, callback_data: dict
         f"{quantity_user}": quantity
     }
 
-    API().storage_product_quantity(pk, updated_product)
+    API().storage_product_quantity_update(pk, updated_product)
 
     await click_product_button(message=call.message, choice_user=choice_user, pk=pk, update=True)
 
@@ -115,7 +115,7 @@ async def another(message: types.Message, state: FSMContext):
                 f"{quantity_user}": quantity
             }
 
-            API().storage_product_quantity(pk, updated_product)
+            API().storage_product_quantity_update(pk, updated_product)
             await message.answer("Готово 😎", reply_markup=default_menu)
     else:
         await message.answer(f"Введи ціле число 😏")

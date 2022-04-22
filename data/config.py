@@ -8,4 +8,5 @@ BOT_TOKEN = env.str("BOT_TOKEN")  # Забираем значение типа s
 ADMINS = env.list("ADMINS")  # Тут у нас будет список из админов
 IP = env.str("ip")  # Тоже str, но для айпи адреса хоста
 BASE_URL = env.str("BASE_URL")
+ADMINSITE = env.json("ADMINSITE")
 
