@@ -17,7 +17,6 @@ async def show_buttons_products_bag(message):
         pk = bag_product['pk']
         product_id = bag_product['product']
         quantity = bag_product['quantity']
-        user_id = bag_product['user']
 
         storage_product = API().storage_product_info(product_id)
         title = storage_product['title']
@@ -29,4 +28,12 @@ async def show_buttons_products_bag(message):
             ),
         ]
         list_button.append(el)
+    el = [
+        InlineKeyboardButton(
+            text=f'Замовлення готове 🤝',
+            callback_data=show_buttons_products_bag_callback.new(type_command="bag_click_pr",
+                                                                 product_in_bag_pk="ready")
+        ),
+    ]
+    list_button.append(el)
     return InlineKeyboardMarkup(row_width=1, inline_keyboard=list_button)
