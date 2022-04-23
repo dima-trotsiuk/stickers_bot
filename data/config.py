@@ -9,4 +9,5 @@ ADMINS = env.list("ADMINS")  # Тут у нас будет список из а�
 IP = env.str("ip")  # Тоже str, но для айпи адреса хоста
 BASE_URL = env.str("BASE_URL")
 ADMINSITE = env.json("ADMINSITE")
+AUTH_TOKEN = env.str("AUTH_TOKEN")
 
