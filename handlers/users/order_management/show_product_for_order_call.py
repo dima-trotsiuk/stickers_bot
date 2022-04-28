@@ -1,5 +1,6 @@
 from aiogram.types import CallbackQuery
 
+from handlers.users.api import API
 from handlers.users.order_management.view_call import view_orders_is_processing
 from keyboards.inline.edit_order.callback_datas import show_buttons_callback
 from keyboards.inline.edit_product_buttons.choice_user_button import choice_user
@@ -18,7 +19,11 @@ async def choice_user_callback(call: CallbackQuery, callback_data: dict):
     elif action == 'view':
         await view_orders_is_processing(call.message)
     elif action == 'send':
-        pass
+        updated = API().processing_to_done()['updated']
+        if updated == '0':
+            await call.message.answer(f"Нема шо відправляти 🧐")
+        else:
+            await call.message.answer(f"Відправлено ({updated})")
     elif action == 'edit':
         pass
     elif action == 'delete':

@@ -3,9 +3,11 @@ from handlers.users.api import API
 
 async def view_orders_is_processing(message):
     order_processing = API().orders_processing_get()
-
-    for order in order_processing:
-        await message.answer(print_order(order))
+    if not order_processing:
+        await message.answer('Замовлень нема 🧐')
+    else:
+        for order in order_processing:
+            await message.answer(print_order(order))
 
 
 def print_order(order_info):

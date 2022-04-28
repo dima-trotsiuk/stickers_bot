@@ -76,3 +76,9 @@ class API:
         order = requests.get(f'{BASE_URL}/v1/order/{pk}/', headers=self.headers)
         order = json.loads(order.text)
         return order
+
+    def processing_to_done(self):
+        processing_to_done = requests.get(f'{BASE_URL}/v1/order/processing_to_done/', headers=self.headers)
+        processing_to_done = json.loads(processing_to_done.text)
+        return processing_to_done
+
