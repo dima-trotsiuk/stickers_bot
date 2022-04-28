@@ -60,7 +60,6 @@ async def show_product_buttons_callback(call: CallbackQuery, callback_data: dict
     """
     await call.answer(cache_time=1)
 
-
     choice_user = callback_data.get('choice_user')
     pk = callback_data.get('pk')
     action = callback_data.get('action')

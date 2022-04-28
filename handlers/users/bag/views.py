@@ -7,4 +7,4 @@ from loader import dp
 
 @dp.message_handler(text="Кошик")
 async def get_storage_dima_vlad(message: types.Message):
-    await message.answer("Кошик", reply_markup=await show_buttons_products_bag(message))
+    await show_buttons_products_bag(message)

@@ -1,5 +1,6 @@
 from aiogram.types import CallbackQuery
 
+from handlers.users.order_management.view_call import view_orders_is_processing
 from keyboards.inline.edit_order.callback_datas import show_buttons_callback
 from keyboards.inline.edit_product_buttons.choice_user_button import choice_user
 from loader import dp
@@ -15,7 +16,7 @@ async def choice_user_callback(call: CallbackQuery, callback_data: dict):
         await call.message.answer("Чий склад? 😐", reply_markup=await choice_user(type_command='choice_user_for_order'))
 
     elif action == 'view':
-        pass
+        await view_orders_is_processing(call.message)
     elif action == 'send':
         pass
     elif action == 'edit':

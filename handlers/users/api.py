@@ -44,7 +44,7 @@ class API:
 
     def bag_product_get_update(self, pk, json_patch=False):
         if json_patch:
-            requests.patch(f'{BASE_URL}/v1/bag/bag_product/{pk}/', json=json_patch, headers=self.headers)
+            return requests.patch(f'{BASE_URL}/v1/bag/bag_product/{pk}/', json=json_patch, headers=self.headers)
         else:
             product_in_bag = requests.get(f'{BASE_URL}/v1/bag/bag_product/{pk}/', headers=self.headers)
             product_in_bag = json.loads(product_in_bag.text)
@@ -66,3 +66,13 @@ class API:
     def bag_create(self, pk):
         bag_detail = requests.get(f'{BASE_URL}/v1/bag/create/{pk}/', headers=self.headers)
         return bag_detail
+
+    def orders_processing_get(self):
+        orders_processing = requests.get(f'{BASE_URL}/v1/order/processing/', headers=self.headers)
+        orders_processing = json.loads(orders_processing.text)
+        return orders_processing
+
+    def order_get(self, pk):
+        order = requests.get(f'{BASE_URL}/v1/order/{pk}/', headers=self.headers)
+        order = json.loads(order.text)
+        return order

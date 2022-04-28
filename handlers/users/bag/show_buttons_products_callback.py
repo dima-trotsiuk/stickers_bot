@@ -1,9 +1,12 @@
+import json
+
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import CallbackQuery
 
 from data.config import ADMINSITE
 from handlers.users.api import API
+from handlers.users.order_management.view_call import print_order
 from keyboards.inline.bag.callback_datas import show_buttons_products_bag_callback
 from keyboards.inline.bag.edit_quantity_bag import edit_quantity_bag
 from loader import dp, bot
@@ -18,7 +21,7 @@ async def show_buttons_products_bag(call: CallbackQuery, callback_data: dict, st
     """
     await call.answer(cache_time=1)
     product_in_bag_pk = callback_data.get('product_in_bag_pk')
-    API().bag_create(1)
+
     # перевіряємо, чи була натиснута кнопка "замовлення готове"
     if product_in_bag_pk == 'ready':
         await OrderIsReadyState.ttn.set()
@@ -40,7 +43,6 @@ async def answer_q1(message: types.Message, state: FSMContext):
     json_patch = {
         "ttn": ttn,
     }
-    print(message.chat.id)
     bag_id = ADMINSITE[f"{message.chat.id}"]
     API().bag_detail_get_update(bag_id, json_patch)
 
@@ -58,8 +60,15 @@ async def answer_q2(message: types.Message, state: FSMContext):
         bag_id = ADMINSITE[f"{message.chat.id}"]
         API().bag_detail_get_update(bag_id, json_patch)
 
-        await message.answer("Заказ готов")
-        # треба буде тут зробити красивий вивід замовлення
+        response = API().bag_create(1)
+
+        if response.status_code == 409:
+            await message.answer("Сталась помилка при створенні замовлення. Попробуй звірити кількість товару.")
+        else:
+            response = json.loads(response.text)
+            order_info = API().order_get(response['pk_order'])
+            await message.answer(print_order(order_info))
+
         await state.finish()
     else:
         await message.answer("Введи ЧИСЛО:")

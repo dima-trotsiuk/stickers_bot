@@ -53,7 +53,7 @@ async def edit_quantity_call(call: CallbackQuery, callback_data: dict):
     elif action == 'close':
 
         await call.message.delete()
-        await call.message.answer("Кошик", reply_markup=await show_buttons_products_bag(call.message))
+        await show_buttons_products_bag(call.message)
 
 
 async def patch(quantity, product_in_bag_pk, message):
