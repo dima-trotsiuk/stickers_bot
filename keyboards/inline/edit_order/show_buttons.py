@@ -19,16 +19,7 @@ async def show_buttons_order():
                 callback_data=show_buttons_callback.new(action="send", type_command='show_buttons_order')
             ),
         ],
-        [
-            InlineKeyboardButton(
-                text=f"Редагувати",
-                callback_data=show_buttons_callback.new(action="edit", type_command='show_buttons_order')
-            ),
-            InlineKeyboardButton(
-                text=f"Видалити",
-                callback_data=show_buttons_callback.new(action="delete", type_command='show_buttons_order')
-            ),
-        ]
+
     ]
 
     return InlineKeyboardMarkup(row_width=1, inline_keyboard=list_button)

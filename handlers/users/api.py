@@ -82,3 +82,10 @@ class API:
         processing_to_done = json.loads(processing_to_done.text)
         return processing_to_done
 
+    def search_for_ttn_get(self, ttn):
+        order = requests.get(f'{BASE_URL}/v1/search/{ttn}/', headers=self.headers)
+        if order.status_code == 404:
+            return 404
+        order = json.loads(order.text)
+        return order
+

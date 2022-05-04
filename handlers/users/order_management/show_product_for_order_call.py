@@ -24,7 +24,3 @@ async def choice_user_callback(call: CallbackQuery, callback_data: dict):
             await call.message.answer(f"Нема шо відправляти 🧐")
         else:
             await call.message.answer(f"Відправлено ({updated})")
-    elif action == 'edit':
-        pass
-    elif action == 'delete':
-        pass
