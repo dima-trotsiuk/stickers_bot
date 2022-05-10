@@ -60,7 +60,7 @@ async def answer_q2(message: types.Message, state: FSMContext):
         bag_id = ADMINSITE[f"{message.chat.id}"]
         API().bag_detail_get_update(bag_id, json_patch)
 
-        response = API().bag_create(1)
+        response = API().bag_create(bag_id)
 
         if response.status_code == 409:
             await message.answer("Сталась помилка при створенні замовлення. Попробуй звірити кількість товару.")
