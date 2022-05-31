@@ -18,7 +18,6 @@ async def edit_quantity_call(call: CallbackQuery, callback_data: dict, state: FS
     """
     Ця функція реагує на клік по товару в корзині
     """
-    await call.answer(cache_time=2)
 
     action = callback_data.get('action')
     product_in_bag_pk = callback_data.get('product_in_bag_pk')

@@ -19,7 +19,6 @@ async def show_buttons_products_bag(call: CallbackQuery, callback_data: dict, st
     """
     Ця функція реагує на команди зміни кількості товару в корзині
     """
-    await call.answer(cache_time=1)
     product_in_bag_pk = callback_data.get('product_in_bag_pk')
 
     # перевіряємо, чи була натиснута кнопка "замовлення готове"

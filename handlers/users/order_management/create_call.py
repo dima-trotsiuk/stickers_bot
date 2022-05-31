@@ -17,7 +17,6 @@ async def choice_user_for_order_callback(call: CallbackQuery, callback_data: dic
     """
     Ця функція реагує на кнопки вибору користувача, чий склад буде редагуватись
     """
-    await call.answer(cache_time=1)
 
     user = callback_data.get('choice_user')
 
@@ -33,7 +32,6 @@ async def show_product_for_order_callback(call: CallbackQuery, callback_data: di
     """
     Спрацьовує при натискуванні на конкретний пак
     """
-    await call.answer(cache_time=1)
     pk = callback_data.get('pk')
     if pk == '0':
         await call.message.answer("Чий склад? 😐",
