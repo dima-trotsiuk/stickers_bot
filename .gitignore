@@ -1,6 +1,5 @@
 # Byte-compiled / optimized / DLL files
 .env
-utils/misc/logging.py
 __pycache__/
 *.py[cod]
 *$py.class
